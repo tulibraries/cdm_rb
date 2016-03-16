@@ -1,8 +1,8 @@
 module CDM
   module Api
     module Defaults
-      def self.set_format(format)
-        format || 'xml'
+      def set_format(format=nil)
+        format ||= 'xml'
       end
     end
   end
