@@ -1,7 +1,7 @@
 require 'cdm/version'
 require 'cdm/api/urls'
 require 'cdm/api/defaults'
-require 'cdm/api/client'
+require 'cdm/api_client'
 
 
 module CDM
