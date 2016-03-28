@@ -100,3 +100,4 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 end
+SPEC_ROOT = File.dirname __FILE__
