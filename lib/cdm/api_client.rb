@@ -17,6 +17,10 @@ module CDM
     def local_init(args)
     end
 
+    def send_query(args)
+      Nokogiri.XML request(args)
+    end
+
 
   end
 end

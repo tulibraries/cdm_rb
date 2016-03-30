@@ -4,7 +4,7 @@ module CDM
 
 
       def local_init(args)
-        @collections = get_collections(args)
+        @collections = send_query(args)
       end
 
       def parsed
@@ -29,11 +29,6 @@ module CDM
         format = set_format args.fetch(:format, nil)
         open("#{@base_url}dmGetCollectionList/#{format}")
       end
-
-      def get_collections(args)
-        Nokogiri.XML request(args)
-      end
-
 
       # given a Nokogiri object for a single collection, returns the collection alias
       def alias_for(collection)

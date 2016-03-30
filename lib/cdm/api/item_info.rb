@@ -5,11 +5,7 @@ module CDM
       def local_init(args)
         @collection = args[:collection]
         @id         = args[:id]
-        @item       = get_item(args)
-      end
-
-      def get_item(args)
-        Nokogiri.XML request(args)
+        @item       = send_query(args)
       end
 
       def request(args)
