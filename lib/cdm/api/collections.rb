@@ -1,6 +1,3 @@
-require 'open-uri'
-require 'nokogiri'
-
 module CDM
   module Api
     class Collections < ApiClient
