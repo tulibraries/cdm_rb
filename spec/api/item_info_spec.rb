@@ -2,10 +2,25 @@ require 'spec_helper'
 
 RSpec.configure do |config|
   config.before(:each) do
-    stub_request(:get, /dmwebservices\/index\.php\?q=dmGetItemInfo/)
+
+    stub_request(:get, /example.com/).with(:query => {'q' => 'dmGetItemInfo/p16002coll9/1314/xml'})
         .to_return(
             status: 200,
-            body: File.open(SPEC_ROOT + '/fixtures/item_info_response.xml').read ,
+            body: File.open(SPEC_ROOT + '/fixtures/item_info/response.xml').read ,
+            headers: {}
+        )
+
+    stub_request(:get, /example.com/).with(:query => {'q' => 'dmGetItemInfo/p16002coll9/INVALID_ID/xml'})
+        .to_return(
+            status: 200,
+            body: File.open(SPEC_ROOT + '/fixtures/item_info/invalid_item_id.xml').read ,
+            headers: {}
+        )
+
+    stub_request(:get, /example.com/).with(:query => {'q' => 'dmGetItemInfo/INVALID_COLLECTION_ID/1314/xml'})
+        .to_return(
+            status: 200,
+            body: File.open(SPEC_ROOT + '/fixtures/item_info/invalid_collection_id.xml').read ,
             headers: {}
         )
   end
@@ -16,7 +31,6 @@ describe 'ContentDM Item Info Query' do
     before do
       @item = CDM::Api::ItemInfo.new :url => 'http://example.com', :collection => 'p16002coll9', :id => '1314'
     end
-
     context 'raw method' do
       before do
         @raw = @item.raw
@@ -67,7 +81,14 @@ describe 'ContentDM Item Info Query' do
         end
       end
     end
+  end
+  context 'handles invalid item ID gracefully' do
 
+    it 'raises an exception if no item with that id exists' do
+      expect {
+        CDM::Api::ItemInfo.new :url => 'http://example.com', :collection => 'p16002coll9', :id => 'INVALID_ID'
+      }.to raise_error ArgumentError
+    end
   end
 end
 

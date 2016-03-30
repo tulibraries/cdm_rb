@@ -12,8 +12,10 @@ module CDM
     def initialize(args)
       @base_url = construct_backend_url args.fetch(:url), args.fetch(:port, nil)
       local_init args
+      validate
     end
 
+    # Each subclass will define its own additional initialization logic
     def local_init(args)
     end
 
@@ -21,6 +23,9 @@ module CDM
       Nokogiri.XML request(args)
     end
 
+    # Each subclass will define its own criteria for validation
+    def validate
+    end
 
   end
 end

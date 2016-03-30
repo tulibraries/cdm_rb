@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<error>
+  <code>-2</code>
+  <message>Requested item not found</message>
+  <restrictionCode>-1</restrictionCode>
+</error>

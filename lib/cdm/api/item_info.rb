@@ -29,7 +29,10 @@ module CDM
         item_hash
       end
 
-      #@TODO HANDLE UNKNOWN ITEMS GRACEFULLY
+      def validate
+        raise ArgumentError, "Item with that ID does not exist: #{raw}" unless @item.xpath("/error").empty?
+      end
+
     end
   end
 end
