@@ -9,7 +9,6 @@ module CDM
       end
 
       def request(args)
-        format = set_format args.fetch(:format, nil)
         open("#{@base_url}dmGetItemInfo/#{@collection}/#{@id}/#{format}")
       end
 
@@ -30,7 +29,8 @@ module CDM
       end
 
       def validate
-        raise ArgumentError, "Item with that ID does not exist: #{raw}" unless @item.xpath("/error").empty?
+        message = "Item with that ID does not exist: #{raw}"
+        raise ArgumentError, message unless @item.xpath("/error").empty?
       end
 
     end

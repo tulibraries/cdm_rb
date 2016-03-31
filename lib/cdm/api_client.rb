@@ -5,12 +5,12 @@ module CDM
   class ApiClient
 
     include CDM::Api::Urls
-    include CDM::Api::Defaults
 
-    attr_reader :base_url, :query_args
+    attr_reader :base_url, :format
 
     def initialize(args)
       @base_url = construct_backend_url args.fetch(:url), args.fetch(:port, nil)
+      @format = args.fetch(:format, nil)
       local_init args
       validate
     end
@@ -25,6 +25,10 @@ module CDM
 
     # Each subclass will define its own criteria for validation
     def validate
+    end
+
+    def format
+      @format || 'xml'
     end
 
   end

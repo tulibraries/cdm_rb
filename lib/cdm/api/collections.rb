@@ -2,7 +2,6 @@ module CDM
   module Api
     class Collections < ApiClient
 
-
       def local_init(args)
         @collections = send_query(args)
       end
@@ -26,7 +25,6 @@ module CDM
       end
 
       def request(args)
-        format = set_format args.fetch(:format, nil)
         open("#{@base_url}dmGetCollectionList/#{format}")
       end
 
