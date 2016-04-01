@@ -24,8 +24,8 @@ module CDM
         hash
       end
 
-      def request
-        open("#{base_url}dmGetCollectionList/#{response_format}")
+      def query_string
+        "#{base_url}dmGetCollectionList/#{response_format}"
       end
 
       # given a Nokogiri object for a single collection, returns the collection alias

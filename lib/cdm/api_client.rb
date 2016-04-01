@@ -23,6 +23,14 @@ module CDM
       Nokogiri.XML request
     end
 
+    def request
+      open(query_string)
+    end
+
+    # Each subclass will define its query string
+    def query_string
+    end
+
     # Each subclass will define its own criteria for validation
     def validate
     end

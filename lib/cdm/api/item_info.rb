@@ -10,8 +10,8 @@ module CDM
         @item       = send_query
       end
 
-      def request
-        open("#{base_url}dmGetItemInfo/#{collection}/#{id}/#{response_format}")
+      def query_string
+        "#{base_url}dmGetItemInfo/#{collection}/#{id}/#{response_format}"
       end
 
       def raw
