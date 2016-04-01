@@ -19,15 +19,15 @@ module CDM
     def local_init(args)
     end
 
-    def send_query(args)
-      Nokogiri.XML request(args)
+    def send_query
+      Nokogiri.XML request
     end
 
     # Each subclass will define its own criteria for validation
     def validate
     end
 
-    def format
+    def response_format
       @format || 'xml'
     end
 

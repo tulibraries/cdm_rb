@@ -3,7 +3,7 @@ module CDM
     class Collections < ApiClient
 
       def local_init(args)
-        @collections = send_query(args)
+        @collections = send_query
       end
 
       def parsed
@@ -24,8 +24,8 @@ module CDM
         hash
       end
 
-      def request(args)
-        open("#{@base_url}dmGetCollectionList/#{format}")
+      def request
+        open("#{base_url}dmGetCollectionList/#{response_format}")
       end
 
       # given a Nokogiri object for a single collection, returns the collection alias

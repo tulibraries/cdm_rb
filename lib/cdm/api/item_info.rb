@@ -2,14 +2,16 @@ module CDM
   module Api
     class ItemInfo < ApiClient
 
+      attr_reader :collection, :id
+
       def local_init(args)
         @collection = args[:collection]
         @id         = args[:id]
-        @item       = send_query(args)
+        @item       = send_query
       end
 
-      def request(args)
-        open("#{@base_url}dmGetItemInfo/#{@collection}/#{@id}/#{format}")
+      def request
+        open("#{base_url}dmGetItemInfo/#{collection}/#{id}/#{response_format}")
       end
 
       def raw
@@ -21,7 +23,7 @@ module CDM
       end
 
       def to_h
-        item_hash = {}
+        item_hash = Hash.new
         @item.xpath('/xml').children.each do |child|
           item_hash[child.name] = child.text
         end
