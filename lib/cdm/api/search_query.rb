@@ -22,14 +22,9 @@ module CDM
 
       # Gets a single page of results for a query
       def results
-        send_query
+        CDM::Api::SearchResult.new :result => send_query, :query => self
       end
 
-      # Iterates over all pages of results if the totel number of results is
-      # greater than the max_recs
-      def all_items
-
-      end
 
       # pardon me as I barf all over this url. UGH!!!
       def query_string
@@ -61,6 +56,7 @@ module CDM
       def start
         @start || '1'
       end
+
 
     end
   end
