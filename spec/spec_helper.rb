@@ -1,5 +1,6 @@
 require 'cdm'
-
+require 'webmock/rspec'
+require 'simplecov'
 
 RSpec.configure do |config|
 
@@ -16,11 +17,12 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
-  require 'webmock/rspec'
+  # disable network calls
   WebMock.disable_net_connect!(allow_localhost: true)
 
-  require 'simplecov'
+
   SimpleCov.start
+
 
 end
 SPEC_ROOT = File.dirname __FILE__

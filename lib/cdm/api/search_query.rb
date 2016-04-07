@@ -22,9 +22,8 @@ module CDM
 
       # Gets a single page of results for a query
       def results
-        CDM::Api::SearchResult.new :result => send_query, :query => self
+       send_query
       end
-
 
       # pardon me as I barf all over this url. UGH!!!
       def query_string
@@ -57,6 +56,9 @@ module CDM
         @start || '1'
       end
 
+      def start=(number)
+        @start = number
+      end
 
     end
   end

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 RSpec.configure do |config|
   config.before(:each) do
     stub_request(:get, /example.com/)
