@@ -3,12 +3,13 @@ module CDM
     class SearchResult
 
       def initialize(args)
-        @results = results args
+        @data = args[:result]
+        @results = results
         @query   = args[:query]
       end
 
-      def results(args)
-        args[:result].xpath('/results')
+      def results
+        @data.xpath('/results')
       end
 
       def pager
