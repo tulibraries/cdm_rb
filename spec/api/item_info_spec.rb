@@ -1,32 +1,29 @@
-require 'spec_helper'
+  #setup the webmock queries
+  RSpec.configure do |config|
+    config.before(:each) do
 
-RSpec.configure do |config|
-  config.before(:each) do
+      stub_request(:get, /example.com/)
+          .with(:query => {'q' => 'dmGetItemInfo/p16002coll9/1314/xml'})
+          .to_return(
+              status: 200,
+              body: File.open(SPEC_ROOT + '/fixtures/item_info/response.xml').read ,
+          )
 
-    stub_request(:get, /example.com/).with(:query => {'q' => 'dmGetItemInfo/p16002coll9/1314/xml'})
-        .to_return(
-            status: 200,
-            body: File.open(SPEC_ROOT + '/fixtures/item_info/response.xml').read ,
-            headers: {}
-        )
+      stub_request(:get, /example.com/).with(:query => {'q' => 'dmGetItemInfo/p16002coll9/INVALID_ID/xml'})
+          .to_return(
+              status: 200,
+              body: File.open(SPEC_ROOT + '/fixtures/item_info/invalid_item_id.xml').read ,
+          )
 
-    stub_request(:get, /example.com/).with(:query => {'q' => 'dmGetItemInfo/p16002coll9/INVALID_ID/xml'})
-        .to_return(
-            status: 200,
-            body: File.open(SPEC_ROOT + '/fixtures/item_info/invalid_item_id.xml').read ,
-            headers: {}
-        )
-
-    stub_request(:get, /example.com/).with(:query => {'q' => 'dmGetItemInfo/INVALID_COLLECTION_ID/1314/xml'})
-        .to_return(
-            status: 200,
-            body: File.open(SPEC_ROOT + '/fixtures/item_info/invalid_collection_id.xml').read ,
-            headers: {}
-        )
+      stub_request(:get, /example.com/).with(:query => {'q' => 'dmGetItemInfo/INVALID_COLLECTION_ID/1314/xml'})
+          .to_return(
+              status: 200,
+              body: File.open(SPEC_ROOT + '/fixtures/item_info/invalid_collection_id.xml').read ,
+          )
+    end
   end
-end
+  describe 'ContentDM Item Info Query' do
 
-describe 'ContentDM Item Info Query' do
   describe 'Returns representations of single item' do
     before do
       @item = CDM::Api::ItemInfo.new :url => 'http://example.com', :collection => 'p16002coll9', :id => '1314'
