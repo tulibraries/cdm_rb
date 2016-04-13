@@ -1,6 +1,8 @@
 module CDM
   module Api
-    class SearchResult
+    class SearchResults
+
+      attr_accessor :data
 
       def initialize(args)
         @data = args[:result]
@@ -29,13 +31,29 @@ module CDM
       end
 
       def records
-        @results.xpath('/records')
+        @results.xpath('records/record')
       end
 
+      def next_page
+        query = @query
+        query.start = start + records_per_page
+        next_page = self.class.new :result => query.results, :query => query
+        @data = next_page.data
+        @results = results
+        @query   = query
+      end
+
+      def self.record_id(record)
+        record.xpath('pointer').text
+      end
 
       # Iterates over all pages of results if the total number of results is
       # greater than the max_recs
       def all_items
+        while total > records_per_page
+
+        end
+
 
       end
     end

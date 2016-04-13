@@ -13,24 +13,56 @@ RSpec.configure do |config|
 end
 describe 'ContentDM Search Results from a dmQuery' do
   describe 'Returns expected values parsed from response' do
-    before do
+
+    before(:all) do
       @query = CDM::Api::SearchQuery.new :url => 'http://example.com'
     end
 
-    it 'exposes the correct total number of records' do
-      @result = CDM::Api::SearchResult.new :result => @query.results, :query => @query
-      expect(@result.total).to eq 500
+    subject { CDM::Api::SearchResults.new :result => @query.results, :query => @query }
+
+    context 'Paging section of response' do
+
+      it 'exposes the correct total number of records' do
+        expect(subject.total).to eq 500
+      end
+
+      it 'exposes the correct limit of records per page' do
+        expect(subject.records_per_page).to be 10
+      end
+
+      it 'exposes the correct record number the results start at' do
+        expect(subject.start).to be 0
+      end
     end
 
-    it 'exposes the correct limit of records per page' do
-      @result = CDM::Api::SearchResult.new :result => @query.results, :query => @query
-      expect(@result.records_per_page).to be 10
+    context 'Results section of response' do
+
+      it 'exposes a list of records' do
+        expect(subject.records).to respond_to :each
+      end
+
+      it 'has the expected number of records' do
+        expect(subject.records.count).to be 10
+      end
     end
 
-    it 'exposes the correct record number the results start at' do
-      @result = CDM::Api::SearchResult.new :result => @query.results, :query => @query
-      expect(@result.start).to be 0
+    context 'the individual response' do
 
+      let(:first) { subject.records.first }
+      let(:last)  { subject.records.last }
+
+      it 'provides its id via the record method' do
+        expect(CDM::Api::SearchResults.record_id first).to eql '3089'
+        expect(CDM::Api::SearchResults.record_id last).to eql '785'
+      end
     end
+
+    context 'The next page method' do
+
+      it 'updates the value of start' do
+
+      end
+    end
+
   end
 end
