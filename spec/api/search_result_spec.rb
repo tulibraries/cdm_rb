@@ -9,6 +9,13 @@ RSpec.configure do |config|
             status: 200,
             body: File.open(SPEC_ROOT + '/fixtures/search/response.xml').read
         )
+    # Valid arameters and valid response, second page
+    stub_request(:get, /example.com/)
+        .with(:query => {'q' => 'dmQuery/all/0/dmrecord/dmrecord/1024/11/1/0/0/0/0/0/xml'})
+        .to_return(
+            status: 200,
+            body: File.open(SPEC_ROOT + '/fixtures/search/response_page_2.xml').read
+        )
   end
 end
 describe 'ContentDM Search Results from a dmQuery' do
@@ -31,7 +38,7 @@ describe 'ContentDM Search Results from a dmQuery' do
       end
 
       it 'exposes the correct record number the results start at' do
-        expect(subject.start).to be 0
+        expect(subject.start).to be 1
       end
     end
 
@@ -60,6 +67,8 @@ describe 'ContentDM Search Results from a dmQuery' do
     context 'The next page method' do
 
       it 'updates the value of start' do
+        expect(subject.dup.next_page.start).to be 11
+
 
       end
     end

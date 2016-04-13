@@ -35,12 +35,11 @@ module CDM
       end
 
       def next_page
-        query = @query
-        query.start = start + records_per_page
-        next_page = self.class.new :result => query.results, :query => query
+        @query.start = start + records_per_page
+        next_page = self.class.new :result => @query.results, :query => @query
         @data = next_page.data
         @results = results
-        @query   = query
+        self
       end
 
       def self.record_id(record)
@@ -50,11 +49,12 @@ module CDM
       # Iterates over all pages of results if the total number of results is
       # greater than the max_recs
       def all_items
-        while total > records_per_page
-
+        total.times do |i|
+          yield records[i - start]
+          unless i < start + records_per_page
+            next_page
+          end
         end
-
-
       end
     end
   end
