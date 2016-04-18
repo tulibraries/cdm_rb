@@ -42,6 +42,10 @@ module CDM
         self
       end
 
+      def is_last_page?
+        start + records_per_page > total
+      end
+
       def self.record_id(record)
         record.xpath('pointer').text
       end
@@ -49,9 +53,10 @@ module CDM
       # Iterates over all pages of results if the total number of results is
       # greater than the max_recs
       def all_items
-        total.times do |i|
-          yield records[i - start]
-          unless i < start + records_per_page
+        Enumerator.new do |yielder|
+          loop do
+            records.each { |record| yielder.yield record }
+            raise StopIteration if is_last_page?
             next_page
           end
         end

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <results>
   <pager>
-    <start>11</start>
+    <start>21</start>
     <maxrecs>10</maxrecs>
     <total>25</total>
   </pager>
   <records>
     <record>
       <collection><![CDATA[/p16002coll9]]></collection>
-      <pointer><![CDATA[3200]]></pointer>
+      <pointer><![CDATA[32001]]></pointer>
       <filetype><![CDATA[jpg]]></filetype>
       <parentobject><![CDATA[-1]]></parentobject>
       <dmrecord><![CDATA[]]></dmrecord>
-      <find><![CDATA[3201.jpg]]></find>
+      <find><![CDATA[32001.jpg]]></find>
     </record>
     <record>
       <collection><![CDATA[/p16002coll9]]></collection>
@@ -45,46 +45,6 @@
       <parentobject><![CDATA[-1]]></parentobject>
       <dmrecord><![CDATA[]]></dmrecord>
       <find><![CDATA[18.jp2]]></find>
-    </record>
-    <record>
-      <collection><![CDATA[/p15037coll5]]></collection>
-      <pointer><![CDATA[401]]></pointer>
-      <filetype><![CDATA[jp2]]></filetype>
-      <parentobject><![CDATA[-1]]></parentobject>
-      <dmrecord><![CDATA[]]></dmrecord>
-      <find><![CDATA[402.jp2]]></find>
-    </record>
-    <record>
-      <collection><![CDATA[/p15037coll5]]></collection>
-      <pointer><![CDATA[785]]></pointer>
-      <filetype><![CDATA[jp2]]></filetype>
-      <parentobject><![CDATA[-1]]></parentobject>
-      <dmrecord><![CDATA[]]></dmrecord>
-      <find><![CDATA[786.jp2]]></find>
-    </record>
-    <record>
-      <collection><![CDATA[/p15037coll5]]></collection>
-      <pointer><![CDATA[1169]]></pointer>
-      <filetype><![CDATA[jp2]]></filetype>
-      <parentobject><![CDATA[-1]]></parentobject>
-      <dmrecord><![CDATA[]]></dmrecord>
-      <find><![CDATA[1170.jp2]]></find>
-    </record>
-    <record>
-      <collection><![CDATA[/p245801coll13]]></collection>
-      <pointer><![CDATA[401]]></pointer>
-      <filetype><![CDATA[jp2]]></filetype>
-      <parentobject><![CDATA[-1]]></parentobject>
-      <dmrecord><![CDATA[]]></dmrecord>
-      <find><![CDATA[402.jp2]]></find>
-    </record>
-    <record>
-      <collection><![CDATA[/p245801coll13]]></collection>
-      <pointer><![CDATA[785]]></pointer>
-      <filetype><![CDATA[jp2]]></filetype>
-      <parentobject><![CDATA[-1]]></parentobject>
-      <dmrecord><![CDATA[]]></dmrecord>
-      <find><![CDATA[786.jp2]]></find>
     </record>
   </records>
   <searchquery>/!/search?query=(za:f3 or za:&quot;155.247.22.102&quot;)&amp;group=$group.pa.cp&lt;ITEM&gt;&lt;DB&gt;$pa&lt;/DB&gt;&lt;KEY&gt;$cp&lt;/KEY&gt;&lt;SORT&gt;$sort-$max.ft.$d&lt;/SORT&gt;&lt;/ITEM&gt;&amp;collection=/p16002-p16002coll9/,/p16002-p16002coll19/,/p16002-p15037coll5/,/p16002-p16002coll14/,/p16002-p15037coll7/,/p16002-p15037coll3/,/p16002-p245801coll13/,/p16002-p15037coll4/,/p16002-p15037coll17/,/p16002-p15037coll9/,/p16002-p15037coll10/,/p16002-p16002coll17/,/p16002-p15037coll15/,/p16002-p15037coll6/,/p16002-p15037coll18/,/p16002-p16002coll16/,/p16002-p245801coll0/,/p16002-p15037coll1/,/p16002-p15037coll12/,/p16002-p245801coll10/,/p16002-p16002coll8/,/p16002-p245801coll12/,/p16002-p16002coll24/,/p16002-p16002coll7/,/p16002-p16002coll4/,/p16002-p16002coll5/,/p16002-p16002coll3/,/p16002-p16002coll1/,/p16002-p15037coll14/,/p16002-p16002coll6/,/p16002-p15037coll2/,/p16002-p15037coll19/,/p16002-p16002coll2/,/p16002-p245801coll11/,/p16002-p16002coll25/,/p16002-p15037coll11/,/p16002-p16002coll10/,/p16002-p16002coll18/&amp;suggest=0&amp;rankboost=&amp;proximity=strict&amp;priority=normal&amp;unanchoredphrases=1&amp;maxres=10&amp;firstres=11&amp;rform=/!/null.htm</searchquery></results>

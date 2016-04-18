@@ -16,6 +16,13 @@ RSpec.configure do |config|
             status: 200,
             body: File.open(SPEC_ROOT + '/fixtures/search/response_page_2.xml').read
         )
+    # Valid arameters and valid response, second page
+    stub_request(:get, /example.com/)
+        .with(:query => {'q' => 'dmQuery/all/0/dmrecord/dmrecord/1024/21/1/0/0/0/0/0/xml'})
+        .to_return(
+            status: 200,
+            body: File.open(SPEC_ROOT + '/fixtures/search/response_page_last.xml').read
+        )
   end
 end
 describe 'ContentDM Search Results from a dmQuery' do
@@ -30,7 +37,7 @@ describe 'ContentDM Search Results from a dmQuery' do
     context 'Paging section of response' do
 
       it 'exposes the correct total number of records' do
-        expect(subject.total).to eq 500
+        expect(subject.total).to eq 25
       end
 
       it 'exposes the correct limit of records per page' do
@@ -68,9 +75,21 @@ describe 'ContentDM Search Results from a dmQuery' do
 
       it 'updates the value of start' do
         expect(subject.dup.next_page.start).to be 11
-
-
       end
+    end
+
+    context 'The `is_last_page?` method' do
+      it 'returns false for pages that re not the first page' do
+        expect(subject.is_last_page?).to be false
+      end
+
+      it 'returns true for the actual last page of results' do
+        last_page_query = @query.dup
+        last_page_query.start = 21
+        result = CDM::Api::SearchResults.new :result => last_page_query.results, :query => last_page_query
+        expect(result.is_last_page?).to be true
+      end
+
     end
 
   end
