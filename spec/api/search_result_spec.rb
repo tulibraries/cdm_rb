@@ -72,8 +72,8 @@ describe 'ContentDM Search Results from a dmQuery' do
       let(:last)  { subject.records.last }
 
       it 'provides its id via the record method' do
-        expect(CDM::Api::SearchResults.record_id first).to eql '3089'
-        expect(CDM::Api::SearchResults.record_id last).to eql '785'
+        expect(first.id).to eql '3089'
+        expect(last.id).to eql '785'
       end
     end
 
@@ -87,10 +87,8 @@ describe 'ContentDM Search Results from a dmQuery' do
 
       it 'updates the records returned' do
         results = CDM::Api::SearchResults.new(:result => @query.results, :query => @query).next_page!
-        first_id = CDM::Api::SearchResults.record_id results.records.first
-        last_id  = CDM::Api::SearchResults.record_id results.records.last
-        expect(first_id).to eql '3200'
-        expect(last_id).to eql '785'
+        expect(results.records.first.id).to eql '3200'
+        expect(results.records.last.id).to eql '785'
 
       end
     end
@@ -112,6 +110,12 @@ describe 'ContentDM Search Results from a dmQuery' do
 
       it 'iterates through all records in a multipage result' do
         expect(subject.all.map.count).to be 25
+      end
+
+      it 'has the expected items' do
+        res = subject.all.map { |x| x }
+        expect(res.first.id).to eql '3089'
+        expect(res.last.id).to eql '17'
       end
 
       it 'iterates through all items in a single page result' do

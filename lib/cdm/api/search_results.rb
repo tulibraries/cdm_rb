@@ -43,7 +43,7 @@ module CDM
       end
 
       def records
-        @results.xpath('records/record')
+        @results.xpath('records/record').collect { |record| CDM::Api::SearchResult.new record }
       end
 
       def self.record_id(record)
@@ -62,6 +62,15 @@ module CDM
         end
       end
 
+    end
+    class SearchResult
+
+      attr_reader :id, :data
+
+      def initialize(record)
+        @data = record
+        @id = record.xpath('pointer').text
+      end
     end
   end
 end
