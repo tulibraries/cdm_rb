@@ -23,12 +23,18 @@ RSpec.configure do |config|
             status: 200,
             body: File.open(SPEC_ROOT + '/fixtures/search/response_page_last.xml').read
         )
+    stub_request(:get, /example.com/)
+        .with(:query => {'q' => 'dmQuery/single/0/dmrecord/dmrecord/1024/1/1/0/0/0/0/0/xml'})
+        .to_return(
+            status: 200,
+            body: File.open(SPEC_ROOT + '/fixtures/search/response_single_page.xml').read
+        )
   end
 end
 describe 'ContentDM Search Results from a dmQuery' do
   describe 'Returns expected values parsed from response' do
 
-    before(:all) do
+    before(:each) do
       @query = CDM::Api::SearchQuery.new :url => 'http://example.com'
     end
 
@@ -73,8 +79,19 @@ describe 'ContentDM Search Results from a dmQuery' do
 
     context 'The next page method' do
 
+
       it 'updates the value of start' do
-        expect(subject.dup.next_page.start).to be 11
+        results = CDM::Api::SearchResults.new(:result => @query.results, :query => @query).next_page!
+        expect(results.start).to be 11
+      end
+
+      it 'updates the records returned' do
+        results = CDM::Api::SearchResults.new(:result => @query.results, :query => @query).next_page!
+        first_id = CDM::Api::SearchResults.record_id results.records.first
+        last_id  = CDM::Api::SearchResults.record_id results.records.last
+        expect(first_id).to eql '3200'
+        expect(last_id).to eql '785'
+
       end
     end
 
@@ -88,6 +105,19 @@ describe 'ContentDM Search Results from a dmQuery' do
         last_page_query.start = 21
         result = CDM::Api::SearchResults.new :result => last_page_query.results, :query => last_page_query
         expect(result.is_last_page?).to be true
+      end
+    end
+
+    context '#all method' do
+
+      it 'iterates through all records in a multipage result' do
+        expect(subject.all.map.count).to be 25
+      end
+
+      it 'iterates through all items in a single page result' do
+        query = CDM::Api::SearchQuery.new :url => 'http://example.com', :alias => 'single'
+        result = CDM::Api::SearchResults.new :result => query.results, :query => query
+        expect(result.all.map.count).to be 9
       end
 
     end

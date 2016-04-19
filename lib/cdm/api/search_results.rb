@@ -30,11 +30,7 @@ module CDM
         pager.xpath('maxrecs').text.to_i
       end
 
-      def records
-        @results.xpath('records/record')
-      end
-
-      def next_page
+      def next_page!
         @query.start = start + records_per_page
         next_page = self.class.new :result => @query.results, :query => @query
         @data = next_page.data
@@ -46,21 +42,26 @@ module CDM
         start + records_per_page > total
       end
 
+      def records
+        @results.xpath('records/record')
+      end
+
       def self.record_id(record)
         record.xpath('pointer').text
       end
 
       # Iterates over all pages of results if the total number of results is
       # greater than the max_recs
-      def all_items
+      def all
         Enumerator.new do |yielder|
           loop do
             records.each { |record| yielder.yield record }
             raise StopIteration if is_last_page?
-            next_page
+            next_page!
           end
         end
       end
+
     end
   end
 end
