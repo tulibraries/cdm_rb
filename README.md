@@ -24,7 +24,7 @@ Or install it yourself as:
 You'll need to configure the CDM gem to ensure you query the appropriate data. To do so in a rails app, create config/initializers/cdm.rb with :
 
 ```ruby
-Primo.configure do |config|
+CDM.configure do |config|
   # A server url is required or the applicaiton wil errror out.
   config.server_url     = 'https://my-cdm-server.com'
 
