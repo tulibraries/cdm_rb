@@ -9,9 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Chad Nelson']
   spec.email         = ['chad.nelson@temple.edu']
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{ Ruby wrapper for Content-DM API }
+  spec.description   = %q{ Wraps the Content-DM API within a ruby library interface }
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
@@ -28,6 +27,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'nokogiri'
+  spec.add_runtime_dependency "httparty"
 
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec'

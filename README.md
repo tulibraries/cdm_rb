@@ -1,4 +1,4 @@
-# CdmRb
+# CDM
 
 A simple wrapper for the ContentDM Api.
 
@@ -20,7 +20,35 @@ Or install it yourself as:
 
 ## Usage
 
+### Configuration
+You'll need to configure the CDM gem to ensure you query the appropriate data. To do so in a rails app, create config/initializers/cdm.rb with :
 
+```ruby
+Primo.configure do |config|
+  # A server url is required or the applicaiton wil errror out.
+  config.server_url     = 'https://my-cdm-server.com'
+
+  # By default enable_loggagle is set to false
+  config.enable_loggagle = false
+end
+```
+Now you can access those configuration attributes with `CDM.configuration.max_recs`
+
+### Making Requests
+
+#### Making simple requests
+Simple requests are easy:
+
+* Pass a string and you will query titles containing the string
+
+```
+CDM.find("otter")
+```
+
+### Logging
+This gem exposes a loggable interface to responses.  Thus a response will respond to `loggable` and return a hash with state values that may be of use to log.
+
+As a bonus, when we enable this feature using the `enable_loggable` configuration, error messages will contain the loggable values and be formatted as JSON.
 
 ## Development
 
