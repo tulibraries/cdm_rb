@@ -1,16 +1,23 @@
-require 'open-uri'
-require 'nokogiri'
+# frozen_string_literal: true
+
+require "open-uri"
+require "nokogiri"
 
 module CDM
   class ApiClient
-
     include CDM::Api::Urls
 
     attr_reader :base_url, :format
 
     def initialize(args)
-      @base_url = construct_backend_url args.fetch(:url), args.fetch(:port, nil)
-      @format = args.fetch(:format, nil)
+      # Keep :url vs :server_url for backwards compatitibilty.
+      url = args.fetch(:url, CDM.configuration&.server_url) ||
+        CDM::StandardError.new("The cdm server_url is required", args)
+
+      port = args.fetch(:port, CDM.configuration&.server_port)
+
+      @base_url = construct_backend_url url, port
+      @format = args.fetch(:format, CDM.configuration&.format)
       local_init args
       validate
     end
@@ -36,8 +43,7 @@ module CDM
     end
 
     def response_format
-      @format || 'xml'
+      @format || "xml"
     end
-
   end
 end
